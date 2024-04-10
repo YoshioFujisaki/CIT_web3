@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            margin-top: 100px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #F0AE1B;
+        }
+    </style>
+</head>
+<body>
+    <table id="multiplication-table"></table>
+
+    <script>
+        fetch('http://localhost:3000/api/table')
+            .then(response => response.json())
+            .then(table => {
+                const tableElement = document.getElementById('multiplication-table');
+                table.forEach(row => {
+                    const rowElement = document.createElement('tr');
+                    row.forEach(cell => {
+                        const cellElement = document.createElement('td');
+                        cellElement.textContent = cell;
+                        cellElement.addEventListener('click', () => {
+                            cellElement.style.backgroundColor = 'lightgreen';
+                        });
+                        rowElement.appendChild(cellElement);
+                    });
+                    tableElement.appendChild(rowElement);
+                });
+            });
+    </script>
+</body>
+</html>
